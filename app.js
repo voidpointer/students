@@ -3,8 +3,10 @@ var app = express();
 
 var data = require('./students_classes');
 
+// do some initial processing of the student data
 var studentId = 1;
 data.students.forEach(function(student){
+  // add a unique id
   student.id = studentId++;
 
   // calculate gpa
@@ -19,10 +21,6 @@ data.students.forEach(function(student){
     classGrade.courseName = data.classes[classGrade.id];
   });
   student.gpa = (gradePoints / student.studentClasses.length).toPrecision(2);
-});
-
-app.get('/api/classes', function (req, res) {
-  res.json(data.classes);
 });
 
 app.get('/api/students/search', function (req, res) {
