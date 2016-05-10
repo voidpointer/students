@@ -4,7 +4,6 @@ var app = {
 	views: {},
 	initialize: function() {
 		this.createViews();
-		this.loadClasses();
 	},
 	createViews: function() {
 		this.searchContainerView = new this.views.SearchContainer();
@@ -111,16 +110,22 @@ app.views.Students = Backbone.View.extend({
 		this.collection.bind('update', this.render);
 	},
 	render: function() {
-		var element = jQuery(this.el);
-		element.empty();
+		var that = this;
+
+		this.$el.empty();
+
 	    this.collection.forEach(function(item) {
 
 			var itemView = new app.views.Student({
 				model: item
 			});
 
-	    	element.append(itemView.render().el);
+	    	that.$el.append(itemView.render().el);
 	    });
+
+	    if (this.collection.length == 0) {
+	    	this.$el.html('<tr><td colspan="4">Sorry, no results found.</td></tr>');
+	    }
 
 		$('.detail-view').empty();
 		

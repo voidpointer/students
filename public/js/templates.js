@@ -24,7 +24,7 @@ var searchContainerTemplate = `
 					<th>Last Name</th>
 					<th>GPA</th>
 					<th></th>
-				<tr>
+				</tr>
 			</thead>
 			<tbody>
 			</tbody>
