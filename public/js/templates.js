@@ -60,7 +60,7 @@ var studentDetailsTemplate = `
 		<tbody>
 			<% _.each(studentClasses, function(course){ %>
 				<tr>
-					<td><%= classes[course.id] %></td>
+					<td><%= course.courseName %></td>
 					<td><%= course.grade %></td>
 				</tr>
 			<% }); %>

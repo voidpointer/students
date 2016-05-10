@@ -18,15 +18,6 @@ var app = {
 		this.studentsView.render();
 
 		this.searchContainerView.doSearch();
-	},
-	loadClasses: function() {
-		// load class data
-		$.ajax({
-			url: '/api/classes',
-			success: function(data) {
-				app.classes = data;
-			}
-		});
 	}
 };
 
@@ -61,6 +52,7 @@ app.views.SearchContainer = Backbone.View.extend({
 				last: this.$('#lastName').val()
 			},
 			success: function(data) {
+				data = _.sortBy(data, 'last');
 				app.studentsCollection.set(data);
 			}
 		});
@@ -99,8 +91,8 @@ app.views.Student = Backbone.View.extend({
 		$.ajax({
 			url: '/api/students/' + this.model.get('id'),
 			success: function(data) {
-				// add class names to student data
-				data.classes = app.classes;
+				// sort by class name
+				data.studentClasses = _.sortBy(data.studentClasses, 'courseName');
 
 				// render student details
 				var detailTemplate = _.template(studentDetailsTemplate);

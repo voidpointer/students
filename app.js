@@ -5,14 +5,20 @@ var data = require('./students_classes');
 
 var studentId = 1;
 data.students.forEach(function(student){
-	student.id = studentId++;
+  student.id = studentId++;
 
-	var gradePoints = 0;
-	student.studentClasses.forEach(function(classGrade){
-		gradePoints += classGrade.grade;
+  // calculate gpa
+  var gradePoints = 0;
+  student.studentClasses.forEach(function(classGrade){
+    gradePoints += classGrade.grade;
+
+    // format grade
     classGrade.grade = classGrade.grade.toPrecision(2);
-	});
-	student.gpa = (gradePoints / student.studentClasses.length).toPrecision(2);
+
+    // add course name
+    classGrade.courseName = data.classes[classGrade.id];
+  });
+  student.gpa = (gradePoints / student.studentClasses.length).toPrecision(2);
 });
 
 app.get('/api/classes', function (req, res) {
@@ -21,12 +27,12 @@ app.get('/api/classes', function (req, res) {
 
 app.get('/api/students/search', function (req, res) {
   res.json(data.students.filter(function(student){
-  	var first = req.query.first || '',
-  		last = req.query.last || '';
-  	return (!first && !last) ||
-  		(first && !last && first.toLowerCase() == student.first.toLowerCase()) ||
-  		(!first && last && last.toLowerCase() == student.last.toLowerCase()) ||
-  		(first && last && first.toLowerCase() == student.first.toLowerCase() && last.toLowerCase() == student.last.toLowerCase());
+    var first = req.query.first || '',
+      last = req.query.last || '';
+    return (!first && !last) ||
+      (first && !last && first.toLowerCase() == student.first.toLowerCase()) ||
+      (!first && last && last.toLowerCase() == student.last.toLowerCase()) ||
+      (first && last && first.toLowerCase() == student.first.toLowerCase() && last.toLowerCase() == student.last.toLowerCase());
   }));
 });
 

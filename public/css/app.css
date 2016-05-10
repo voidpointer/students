@@ -21,6 +21,10 @@ h3 {
 	background-color: #eee;
 }
 
+.search-results tbody tr {
+	cursor:pointer;
+}
+
 .detail-view {
 	padding: 15px;
 }
