@@ -1,7 +1,7 @@
 var searchContainerTemplate = `
 	<div class="search-form">
+		<small class="pull-right">Note: An empty search <br> will return all results.</small>
 		<h3>Search Form</h3>
-		<small>Note: An empty search will return all results.</small>
 		<form>
 			<div class="form-group">
 				<label for="firstName">First Name</label>
