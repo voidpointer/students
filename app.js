@@ -10,8 +10,9 @@ data.students.forEach(function(student){
 	var gradePoints = 0;
 	student.studentClasses.forEach(function(classGrade){
 		gradePoints += classGrade.grade;
+    classGrade.grade = classGrade.grade.toPrecision(2);
 	});
-	student.gpa = gradePoints / student.studentClasses.length;
+	student.gpa = (gradePoints / student.studentClasses.length).toPrecision(2);
 });
 
 app.get('/api/classes', function (req, res) {
@@ -30,14 +31,20 @@ app.get('/api/students/search', function (req, res) {
 });
 
 app.get('/api/students/:id', function (req, res) {
-  res.json(data.students.filter(function(student){
-  	return req.params.id == student.id;
-  }));
+  var returnValue = false;
+
+  data.students.forEach(function(student){
+    if (req.params.id == student.id) {
+      returnValue = student;
+    }
+  });
+
+  res.json(returnValue);
 });
 
 app.use(express.static('public'));
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Student app listening on port 3000!');
 });
 

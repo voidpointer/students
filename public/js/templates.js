@@ -1,4 +1,6 @@
 var searchContainerTemplate = `
+	<h3>Search Form</h3>
+	<small>Note: An empty search will return all results.</small>
 	<form>
 		<div class="form-group">
 			<label for="firstName">First Name</label>
@@ -11,7 +13,7 @@ var searchContainerTemplate = `
 		<button type="submit" class="btn btn-default">Submit</button>
 		<button type="reset" class="btn btn-default">Reset</button>
 	</form>
-	<div class='search-results'>
+	<div class="search-results">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -29,9 +31,32 @@ var searchContainerTemplate = `
 var studentSearchResultTemplate = `
 	<td><%= first %></td>
 	<td><%= last %></td>
-	<td><%= gpa.toPrecision(2) %></td>
-	<td align='right'></td>`;
+	<td><%= gpa %></td>
+	<td align="right"></td>`;
 
 var studentDetailsTemplate = `
-	<%= first %> <%= last %> <%= gpa.toPrecision(2) %>
+	<h3><%= first %> <%= last %></h3>
+	<table class="table">
+		<tr>
+			<th>Email</th>
+			<td><%= email %></td>
+		</tr>
+		<tr>
+			<th>GPA</th>
+			<td><%= gpa %></td>
+		</tr>
+	</table>
+	<h4>Grades</h4>
+	<table class="table">
+		<tr>
+			<th>Class</th>
+			<th>Grade</th>
+		</tr>
+		<% _.each(studentClasses, function(course){ %>
+			<tr>
+				<td><%= classes[course.id] %></td>
+				<td><%= course.grade %></td>
+			</tr>
+		<% }); %>
+	</table>	
 	`;

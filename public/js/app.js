@@ -1,21 +1,36 @@
 var app = {
 	models: {},
 	collections: {},
-	views: {}
+	views: {},
+	initialize: function() {
+		this.createViews();
+		this.loadClasses();
+	},
+	createViews: function() {
+		this.searchContainerView = new this.views.SearchContainer();
+		this.searchContainerView.render();
+
+		this.studentsCollection = new this.collections.Students();
+
+		this.studentsView = new this.views.Students({
+			collection: this.studentsCollection
+		});
+		this.studentsView.render();
+
+		this.searchContainerView.doSearch();
+	},
+	loadClasses: function() {
+		$.ajax({
+			url: '/api/classes',
+			success: function(data) {
+				app.classes = data;
+			}
+		});
+	}
 };
 
 $(function(){
-	app.searchContainer = new app.views.SearchContainer();
-	app.searchContainer.render();
-
-	app.studentsCollection = new app.collections.Students();
-
-	app.studentsView = new app.views.Students({
-		collection: app.studentsCollection
-	});
-	app.studentsView.render();
-
-	app.searchContainer.doSearch();
+	app.initialize();
 });
 
 app.views.SearchContainer = Backbone.View.extend({
@@ -45,7 +60,6 @@ app.views.SearchContainer = Backbone.View.extend({
 				last: this.$('#lastName').val()
 			},
 			success: function(data) {
-				console.log(data);
 				app.studentsCollection.set(data);
 			}
 		});
@@ -72,14 +86,26 @@ app.views.Student = Backbone.View.extend({
 		return this;
 	},
 	studentClicked: function() {
+		// update active student
 		this.$el.siblings().removeClass('active');
 		this.$el.addClass('active');
 
-		this.$el.siblings().find('span.glyphicon').remove();
+		// add chevron next to active student
+		this.$el.parent().find('span.glyphicon').remove();
 		this.$('td:last').append($("<span class='glyphicon glyphicon-chevron-right'></span>"));
 
-		var detailTemplate = _.template(studentDetailsTemplate);
-		$('.detail-view').html(detailTemplate(this.model.toJSON()));
+		// get student details
+		$.ajax({
+			url: '/api/students/' + this.model.get('id'),
+			success: function(data) {
+				// add class names to student data
+				data.classes = app.classes;
+
+				// render student details
+				var detailTemplate = _.template(studentDetailsTemplate);
+				$('.detail-view').html(detailTemplate(data));
+			}
+		})
 	}
 });
 
