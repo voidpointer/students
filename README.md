@@ -12,4 +12,6 @@ To clone the project and run it locally:
     rjones$ node app.js
     Student app listening on port 3000!
 
-Then visit http://localhost:3000/ in your web browser.
+Then visit <http://localhost:3000/> in your web browser.
+
+Note: I don't think this will work in Internet Explorer because of the template literal strings in templates.js.
