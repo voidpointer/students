@@ -1,0 +1,38 @@
+h3 {
+	margin-top: 0;
+}
+
+.search-container {
+	padding: 0;
+}
+
+.search-form, .search-results {
+ 	padding: 15px;
+ 	-webkit-box-shadow: inset 0px 0px 20px 0px rgba(140,137,140,0.36);
+	-moz-box-shadow: inset 0px 0px 20px 0px rgba(140,137,140,0.36);
+	box-shadow: inset 0px 0px 20px 0px rgba(140,137,140,0.36);
+}
+
+.search-form {
+	background-color: #ccc;
+}
+
+.search-results {
+	background-color: #eee;
+}
+
+.detail-view {
+	padding: 15px;
+}
+
+.detail-view .table {
+	width:400px;
+}
+
+.table > tbody > tr:hover > td {
+	background-color: #e0e0e0;
+}
+
+.table > tbody > tr.active > td, .table > tbody > tr.active:hover > td {
+	background-color: #d0d0d0;
+}

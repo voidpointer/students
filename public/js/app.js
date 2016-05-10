@@ -20,6 +20,7 @@ var app = {
 		this.searchContainerView.doSearch();
 	},
 	loadClasses: function() {
+		// load class data
 		$.ajax({
 			url: '/api/classes',
 			success: function(data) {
