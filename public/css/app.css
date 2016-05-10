@@ -25,18 +25,18 @@ h3 {
 	cursor:pointer;
 }
 
+.search-results .table > tbody > tr:hover > td {
+	background-color: #e0e0e0;
+}
+
+.search-results .table > tbody > tr.active > td, .search-results .table > tbody > tr.active:hover > td {
+	background-color: #d0d0d0;
+}
+
 .detail-view {
 	padding: 15px;
 }
 
 .detail-view .table {
 	width:400px;
-}
-
-.table > tbody > tr:hover > td {
-	background-color: #e0e0e0;
-}
-
-.table > tbody > tr.active > td, .table > tbody > tr.active:hover > td {
-	background-color: #d0d0d0;
 }
